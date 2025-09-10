@@ -1,0 +1,17 @@
+.{
+    .name = .leveldb,
+    .version = "0.1.0",
+    .fingerprint = 0x10c9e9cbf0218e9d,
+    .minimum_zig_version = "0.14.1",
+    .dependencies = .{},
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "db",
+        "include",
+        "port",
+        "table",
+        "util",
+    },
+}

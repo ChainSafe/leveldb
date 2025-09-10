@@ -6,3 +6,6 @@
 # Build directory.
 build/
 out/
+
+.zig-cache
+zig-out
