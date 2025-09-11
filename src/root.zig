@@ -614,8 +614,8 @@ pub fn repairDB(options: *Options, name: [:0]const u8) Error!void {
 
 /// Frees memory allocated by LevelDB.
 /// Use this to free slices returned by functions like `DB.get()` and `DB.propertyName()`.
-pub fn free(slice: []const u8) void {
-    leveldb.leveldb_free(@constCast(@ptrCast(slice.ptr)));
+pub fn free(ptr: [*]const u8) void {
+    leveldb.leveldb_free(@constCast(@ptrCast(ptr)));
 }
 
 // Version functions
@@ -664,7 +664,7 @@ test "basic put and get" {
     var read_options = ReadOptions.create();
     defer read_options.destroy();
     const retrieved = try db.get(&read_options, key) orelse return error.KeyNotFound;
-    defer free(retrieved);
+    defer free(retrieved.ptr);
     try std.testing.expectEqualStrings(value, retrieved);
 }
 
@@ -840,7 +840,7 @@ test "empty key and value" {
     var read_options = ReadOptions.create();
     defer read_options.destroy();
     const retrieved = try db.get(&read_options, "") orelse return error.KeyNotFound;
-    defer free(retrieved);
+    defer free(retrieved.ptr);
     try std.testing.expectEqualStrings("", retrieved);
 }
 
@@ -873,7 +873,7 @@ test "overwrite key" {
     var read_options = ReadOptions.create();
     defer read_options.destroy();
     const retrieved = try db.get(&read_options, key) orelse return error.KeyNotFound;
-    defer free(retrieved);
+    defer free(retrieved.ptr);
     try std.testing.expectEqualStrings(value2, retrieved);
 }
 

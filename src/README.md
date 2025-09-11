@@ -50,7 +50,7 @@ pub fn main() !void {
     if (value) |v| {
         std.debug.print("Value: {s}\n", .{v});
         // IMPORTANT: Free the memory allocated by LevelDB
-        leveldb.free(v);
+        leveldb.free(v.ptr);
     }
 }
 ```
